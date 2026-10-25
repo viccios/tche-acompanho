@@ -1,1 +1,28 @@
 @import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Atkinson Hyperlegible', sans-serif;
+  --animate-heart-bounce: heart-bounce 1200ms ease-in-out infinite;
+
+  @keyframes heart-bounce {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    20% {
+      transform: scale(1.14);
+    }
+    35% {
+      transform: scale(0.96);
+    }
+    50% {
+      transform: scale(1.08);
+    }
+    65% {
+      transform: scale(0.99);
+    }
+    80% {
+      transform: scale(1.03);
+    }
+  }
+}
