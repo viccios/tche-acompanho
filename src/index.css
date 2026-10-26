@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+body {
+  font-family: var(--font-sans);
+}
+
 @theme {
   --font-sans: 'Atkinson Hyperlegible', sans-serif;
   --animate-heart-bounce: heart-bounce 1200ms ease-in-out infinite;
