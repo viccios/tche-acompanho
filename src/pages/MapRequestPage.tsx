@@ -21,7 +21,7 @@ const markers: MapMarker[] = [
     slug: 'fabricio',
     x: 33,
     y: 58,
-    image: 'photo-1514888286974-6c03e2ca1dba',
+    image: '/fabricio.png',
   },
   { name: 'Carla', slug: 'carla', x: 46, y: 23, image: 'photo-1573865526739-10659fec78a5' },
   { name: 'Rodrigo', slug: 'rodrigo', x: 39, y: 54, image: 'photo-1495360010541-f48722b34f7d' },
@@ -86,8 +86,12 @@ export default function MapRequestPage() {
                 <article className="pointer-events-auto relative z-10 flex w-72 max-w-full flex-col items-center rounded-xl bg-white p-6 text-center shadow-lg">
                   <img
                     className="mb-3 size-20 rounded-full object-cover"
-                    src={`https://images.unsplash.com/${selected.image}?auto=format&fit=crop&w=100&h=100&q=80`}
-                    alt={`Gato associado ao pedido de ajuda de ${selected.name}`}
+                    src={
+                      selected.image.startsWith('photo-')
+                        ? `https://images.unsplash.com/${selected.image}?auto=format&fit=crop&w=100&h=100&q=80`
+                        : selected.image
+                    }
+                    alt={`Imagem associada ao pedido de ajuda de ${selected.name}`}
                   />
                   <strong className="text-lg">
                     {selected.name}
