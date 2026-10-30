@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router'
 import Header from '@/widgets/Header'
@@ -32,18 +32,16 @@ const markers: MapMarker[] = [
 export default function MapRequestPage() {
   const [searchParams] = useSearchParams()
   const requestedMarker = searchParams.get('pedido')
-  const [selected, setSelected] = useState(markers[0])
-  const [popup, setPopup] = useState(true)
-  const [accepted, setAccepted] = useState(false)
-
-  useEffect(() => {
-    const marker = markers.find((item) => item.slug === requestedMarker)
-    if (marker) {
-      setSelected(marker)
-      setPopup(true)
-      setAccepted(false)
-    }
-  }, [requestedMarker])
+  const selected = markers.find((item) => item.slug === requestedMarker) ?? markers[0]
+  const [popupState, setPopupState] = useState({
+    requestedMarker,
+    isOpen: true,
+    accepted: false,
+  })
+  const currentPopupState =
+    popupState.requestedMarker === requestedMarker
+      ? popupState
+      : { requestedMarker, isOpen: true, accepted: false }
   return (
     <div className="flex min-h-screen flex-col font-sans">
       <title>Mapa de solicitações — Tchê Acompanho</title>
@@ -60,9 +58,9 @@ export default function MapRequestPage() {
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 bg-emerald-500/15 mix-blend-multiply"
           />
-          {popup && (
+          {currentPopupState.isOpen && (
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-4">
-              {accepted ? (
+              {currentPopupState.accepted ? (
                 <article className="pointer-events-auto relative z-10 flex w-80 max-w-full flex-col items-center rounded-xl bg-white p-6 text-center shadow-lg">
                   <CheckCircle2 className="text-green-700" size={42} aria-hidden="true" />
                   <h2 className="mt-3 text-xl font-bold">Ajuda aceita</h2>
@@ -78,8 +76,7 @@ export default function MapRequestPage() {
                   <button
                     className="mt-3 text-sm text-blue-800 hover:underline"
                     onClick={() => {
-                      setAccepted(false)
-                      setPopup(false)
+                      setPopupState({ requestedMarker, isOpen: false, accepted: false })
                     }}
                   >
                     Continuar no mapa
@@ -102,13 +99,17 @@ export default function MapRequestPage() {
                   <div className="mt-4 flex gap-3 text-base">
                     <button
                       className="rounded-md bg-blue-800 px-4 py-2 text-white"
-                      onClick={() => setAccepted(true)}
+                      onClick={() =>
+                        setPopupState({ requestedMarker, isOpen: true, accepted: true })
+                      }
                     >
                       Aceitar
                     </button>
                     <button
                       className="rounded-md border border-gray-300 px-4 py-2"
-                      onClick={() => setPopup(false)}
+                      onClick={() =>
+                        setPopupState({ requestedMarker, isOpen: false, accepted: false })
+                      }
                     >
                       Recusar
                     </button>

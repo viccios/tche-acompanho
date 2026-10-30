@@ -75,9 +75,7 @@ export default function HelpersPage() {
                   <span className="ml-1 text-base text-gray-800">{helper.rating}</span>
                 </div>
                 <p className="mt-1 text-lg font-bold">{helper.age} anos</p>
-                <p className="mt-2 flex-1 text-base">
-                  Um pouco sobre mim: {helper.about}
-                </p>
+                <p className="mt-2 flex-1 text-base">Um pouco sobre mim: {helper.about}</p>
                 <Link
                   className="mt-3 text-base text-blue-800 hover:underline"
                   to={`/perfil/${helper.slug}`}

@@ -109,7 +109,10 @@ export default function DashboardPage() {
                   <div className="min-w-0 flex-1">
                     <h3 className="text-base font-bold sm:text-lg">{item.title}</h3>
                     <p className="text-sm text-gray-700 sm:text-base">{item.detail}</p>
-                    <p className="mt-1 flex items-center gap-0.5 text-amber-500" aria-label="5 de 5 estrelas">
+                    <p
+                      className="mt-1 flex items-center gap-0.5 text-amber-500"
+                      aria-label="5 de 5 estrelas"
+                    >
                       {Array.from({ length: 5 }, (_, index) => (
                         <Star key={index} size={12} fill="currentColor" />
                       ))}
